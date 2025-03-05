@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
+app.get('/', (req, res) => {
+	res.json({ message: 'welcome' })
+})
 app.use('/api', routes)
 
 app.use((error, req, res, next) => {
@@ -20,4 +23,4 @@ app.use((error, req, res, next) => {
 })
 
 const PORT = 3000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`))

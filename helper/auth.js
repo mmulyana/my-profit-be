@@ -1,3 +1,7 @@
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
+require('dotenv').config()
+
 const JWT_SECRET = process.env.JWT_SECRET
 
 const hashPassword = async (password) => {
@@ -11,8 +15,6 @@ const comparePassword = async (password, hash) => {
 const generateToken = (userId) => {
 	return jwt.sign({ userId }, JWT_SECRET, { expiresIn: '1h' })
 }
-
-
 
 module.exports = {
 	hashPassword,

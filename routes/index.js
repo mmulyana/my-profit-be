@@ -8,7 +8,7 @@ const authMiddleware = require('../middleware')
 
 const router = express.Router()
 
-router.use('/', authRoutes)
+router.use('/auth', authRoutes)
 router.use('/profile', authMiddleware, profileRoutes)
 router.use('/items', itemRoutes)
 

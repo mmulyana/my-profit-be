@@ -38,7 +38,11 @@ const loginController = async (req, res) => {
 			email,
 		},
 	})
-	if (!user || !comparePassword(password, user.password)) {
+	if (!user) {
+		throw new Error('Akun tidak ditemukan')
+	}
+
+	if (!(await comparePassword(password, user.password))) {
 		throw new Error('Email atau password salah')
 	}
 

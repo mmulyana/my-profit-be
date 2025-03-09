@@ -3,6 +3,6 @@ const { getMeController } = require('../controller/profile.controller')
 
 const router = express.Router()
 
-router.post('/', getMeController)
+router.get('/', getMeController)
 
 module.exports = router

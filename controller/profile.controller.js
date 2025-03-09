@@ -1,9 +1,9 @@
 const prisma = require('../lib/prisma')
 
 const getMeController = async (req, res) => {
-	const { id } = req.user
+	const { userId } = req.user
 
-	const user = await prisma.user.findUnique({ where: { id } })
+	const user = await prisma.user.findUnique({ where: { userId } })
 	const data = {
 		id: user.id,
 		email: user.email,

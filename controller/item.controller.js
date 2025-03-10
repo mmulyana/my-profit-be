@@ -56,7 +56,7 @@ const updateItem = async (req, res) => {
 		throw new Error('Data tidak ditemukan')
 	}
 	if (existingItem.photo) {
-		await deleteFile(existingItem.photo)
+		await deleteFile(existingItem.photo.slice(1))
 	}
 
 	const data = await prisma.item.update({

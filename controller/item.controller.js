@@ -15,7 +15,7 @@ const getItem = async (req, res) => {
 		throw new Error('Data tidak ditemukan')
 	}
 
-	res.jons({ data })
+	res.json({ data })
 }
 
 const createItem = async (req, res) => {

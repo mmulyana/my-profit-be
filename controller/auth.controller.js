@@ -6,11 +6,11 @@ const {
 } = require('../helper/auth')
 
 const registerController = async (req, res) => {
-	const { email, password } = req.body
+	const { email, password, id } = req.body
 
-	const exist = await prisma.user.findUnique({
+	const exist = await prisma.user.findFirst({
 		where: {
-			email,
+			AND: [{ email }, { id }],
 		},
 	})
 	if (exist) {
@@ -21,6 +21,7 @@ const registerController = async (req, res) => {
 
 	const data = await prisma.user.create({
 		data: {
+			id,
 			email,
 			password: hashedPassword,
 		},

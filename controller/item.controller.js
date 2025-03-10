@@ -1,9 +1,14 @@
 const prisma = require('../lib/prisma')
 
 const getItems = async (req, res) => {
-	const { name } = req.query
+	const { name, userId } = req.query
 
-	const where = name ? { name: { contains: name } } : {}
+	const where = {
+		AND: [
+			name ? [{ name: { contains: name } }] : [],
+			userId ? [{ userId }] : [],
+		],
+	}
 	const data = await prisma.item.findMany({ where })
 	res.json({ data })
 }

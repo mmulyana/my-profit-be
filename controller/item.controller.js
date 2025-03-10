@@ -82,9 +82,9 @@ const deleteItem = async (req, res) => {
 		throw new Error('Data tidak ditemukan')
 	}
 	if (existingItem.photo) {
-		await deleteFile(existingItem.photo)
+		await deleteFile(existingItem.photo.slice(0, 1))
 	}
-	
+
 	await prisma.item.delete({ where: { id: Number(id) } })
 	res.json({ message: 'item deleted' })
 }

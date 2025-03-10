@@ -4,7 +4,7 @@ const getItems = async (req, res) => {
 	const { name } = req.query
 
 	const where = name ? { name: { contains: name } } : {}
-	const data = await prisma.item.findMany(where)
+	const data = await prisma.item.findMany({ where })
 	res.json({ data })
 }
 

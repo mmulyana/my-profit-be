@@ -24,7 +24,7 @@ const getItem = async (req, res) => {
 }
 
 const createItem = async (req, res) => {
-	const { name, quantity, purchasePrice, sellingPrice } = req.body
+	const { name, quantity, purchasePrice, sellingPrice, userId } = req.body
 	const photo = req.file ? `/uploads/${req.file.filename}` : null
 
 	const data = await prisma.item.create({
@@ -34,6 +34,7 @@ const createItem = async (req, res) => {
 			purchasePrice: Number(purchasePrice),
 			sellingPrice: sellingPrice ? Number(sellingPrice) : null,
 			photo,
+			userId,
 		},
 	})
 	res.json({ data })

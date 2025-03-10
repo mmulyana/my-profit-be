@@ -2,6 +2,9 @@ const prisma = require('../lib/prisma')
 
 const getItems = async (req, res) => {
 	const { name, userId } = req.query
+	if (!userId) {
+		throw new Error('userId tidak boleh kosong')
+	}
 
 	const where = {
 		AND: [

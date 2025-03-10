@@ -5,8 +5,8 @@ const getItems = async (req, res) => {
 
 	const where = {
 		AND: [
-			name ? [{ name: { contains: name } }] : [],
-			userId ? [{ userId }] : [],
+			...(name ? [{ name: { contains: name } }] : []),
+			...(userId ? [{ userId }] : []),
 		],
 	}
 	const data = await prisma.item.findMany({ where })

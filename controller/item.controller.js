@@ -1,4 +1,5 @@
 const prisma = require('../lib/prisma')
+const { deleteFile } = require('../helper/file')
 
 const getItems = async (req, res) => {
 	const { name, userId } = req.query
@@ -54,6 +55,9 @@ const updateItem = async (req, res) => {
 	if (!existingItem) {
 		throw new Error('Data tidak ditemukan')
 	}
+	if (existingItem.photo) {
+		await deleteFile(existingItem.photo)
+	}
 
 	const data = await prisma.item.update({
 		where: { id: Number(id) },
@@ -71,6 +75,16 @@ const updateItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
 	const { id } = req.params
+	const existingItem = await prisma.item.findUnique({
+		where: { id: Number(id) },
+	})
+	if (!existingItem) {
+		throw new Error('Data tidak ditemukan')
+	}
+	if (existingItem.photo) {
+		await deleteFile(existingItem.photo)
+	}
+	
 	await prisma.item.delete({ where: { id: Number(id) } })
 	res.json({ message: 'item deleted' })
 }
